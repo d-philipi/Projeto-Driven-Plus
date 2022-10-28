@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+
+//Estilos aplicados na página de login//
 export const ContainerLogin = styled.div`
     width: 100%;
     height: 667px;
@@ -39,6 +41,7 @@ export const ContainerLogin = styled.div`
             border-radius: 8px;
             border: 1px solid #FF4791;
             margin-top: 20px;
+            cursor: pointer;
 
             font-family: 'Roboto', sans-serif;
             font-style: normal;
@@ -57,6 +60,7 @@ export const ContainerLogin = styled.div`
     }
 `
 
+//Estilos aplicados na página de Cadastro//
 export const ContainerSign = styled.div`
     width: 100%;
     height: 667px;
@@ -92,6 +96,7 @@ export const ContainerSign = styled.div`
             border-radius: 8px;
             border: 1px solid #FF4791;
             margin-top: 20px;
+            cursor: pointer;
 
             font-family: 'Roboto', sans-serif;
             font-style: normal;
