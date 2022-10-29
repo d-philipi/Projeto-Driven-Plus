@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 
 import Login from "./pagelogin/login";
 import SignUp from './pagecadastro/cadastro';
-import Plano from "./pageplano/plano";
+import Plano from "./pageplanos/plano";
 import Planos from "./pageplanos/planos";
 import Home from "./pagehome/home";
 
@@ -13,16 +13,34 @@ import MyContext from './context/mycontext';
 
 
 export default function App() {
+
+  const tokenLocalStorage = localStorage.getItem("token");
+
   const [email, setEmail] = useState("");
 	const [senha, setSenha] = useState("");
   const [nome, setNome] = useState("");
 	const [cpf, setCpf] = useState("");
+  const [nomeCartao, setNomeCartao] = useState("");
+  const [numeroCartao, setNumeroCartao] = useState("");
+  const [codSeguranca, setCodSeguranca] = useState("");
+  const [dataCartao, setDataCartao] = useState("")
   const [usuario, setUsuario] = useState({});
+  const [token, setToken] = useState(tokenLocalStorage);
+  const config = {
+    headers: {
+        Authorization: `Bearer ${token}`
+    }
+  }
+
+  function manterLogado(token) {
+		setToken(token);
+		localStorage.setItem("token", token);
+	}
 
   return (
     <BrowserRouter>
       <GlobalStyle/>
-      <MyContext.Provider value={usuario}>
+      <MyContext.Provider value={{usuario, token, setToken, manterLogado, config}}>
         <Routes>
           <Route
           path="/"
@@ -48,8 +66,17 @@ export default function App() {
           />}
           ></Route>
           <Route
-          path="/subscriptions/ID_DO_PLANO"
-          element={<Plano/>}
+          path="/subscriptions/:idPlano"
+          element={<Plano
+          nomeCartao={nomeCartao}
+          setNomeCartao={setNomeCartao}
+          numeroCartao={numeroCartao}
+          setNumeroCartao={setNumeroCartao}
+          codSeguranca={codSeguranca}
+          setCodSeguranca={setCodSeguranca}
+          dataCartao={dataCartao}
+          setDataCartao={setDataCartao}
+          />}
           ></Route>
           <Route
           path="/subscriptions"

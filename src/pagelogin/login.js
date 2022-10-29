@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ContainerLogin } from '../styled-components/styleds';
+import MyContext from '../context/mycontext';
 
 export default function Login({email, setEmail, senha, setSenha, setUsuario}){
 
     const navigate = useNavigate();
+    const {token, manterLogado} = useContext(MyContext);
+
+    useEffect(()=>{
+        if (token != null){
+
+            const userSerializado = localStorage.getItem('usuario');
+            const user = JSON.parse(userSerializado);
+
+            setUsuario(user);
+
+            if (user.membership == null){
+                console.log("Esse inscrito não possui plano");
+                navigate('/subscriptions');
+            }else{
+                console.log("Plano fixo");
+                navigate('/home');
+            }
+        }
+    },[]);
 
     function fazerLogin(e){
         e.preventDefault();
@@ -18,18 +38,23 @@ export default function Login({email, setEmail, senha, setSenha, setUsuario}){
 
     function LoginSucesso(resposta){
         setUsuario(resposta.data);
-        navigate('/subscriptions');
+        manterLogado(resposta.data.token);
+
+        const user = resposta.data;
+        const userSerializado = JSON.stringify(user);
+        localStorage.setItem('usuario', userSerializado);
+
         if (resposta.data.membership == null){
+            console.log("Esse inscrito não possui plano");
             navigate('/subscriptions');
         }else{
-            console.log("Plano fixo");
-            //navigate(`/subscriptions/${resposta.data.membership.id}`);
+            console.log("Esse inscrito já possui um plano");
+            navigate('/home');
         }
     }
 
     function loginFalha(erro){
-        console.log(erro);
-        //alert(erro.response.data.message);
+        alert(erro.response.data.message);
     }
 
     return (
