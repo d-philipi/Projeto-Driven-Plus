@@ -10,8 +10,7 @@ export default function Plano({setUsuario, nomeCartao, setNomeCartao, numeroCart
 
     const Swal = require('sweetalert2');
     const {idPlano} = useParams();
-    const {usuario, config} = useContext(MyContext);
-    const [plano, setPlano] = useState();
+    const {usuario, config, plano, setPlano} = useContext(MyContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,7 +20,6 @@ export default function Plano({setUsuario, nomeCartao, setNomeCartao, numeroCart
 
         function planoSucesso(resposta){
             setPlano(resposta.data);
-            console.log("Deu certo!", resposta.data);
         }
     
         function planoFalha(erro){
@@ -35,11 +33,10 @@ export default function Plano({setUsuario, nomeCartao, setNomeCartao, numeroCart
 
     function voltar(){
         navigate("/subscriptions");
-        console.log("Voltei, muito bom dia meu povo!")
     }
 
     function assinaturaSucesso(resposta){
-        setUsuario()
+        setPlano(resposta.data.membership);
 
         navigate("/home");
         console.log("Assinei!", resposta);

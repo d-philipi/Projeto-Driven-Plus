@@ -25,6 +25,7 @@ export default function App() {
   const [codSeguranca, setCodSeguranca] = useState("");
   const [dataCartao, setDataCartao] = useState("")
   const [usuario, setUsuario] = useState({});
+  const [plano, setPlano] = useState()
   const [token, setToken] = useState(tokenLocalStorage);
   const config = {
     headers: {
@@ -40,7 +41,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <GlobalStyle/>
-      <MyContext.Provider value={{usuario, token, setToken, manterLogado, config}}>
+      <MyContext.Provider value={{usuario, token, setToken, manterLogado, config, plano, setPlano}}>
         <Routes>
           <Route
           path="/"
