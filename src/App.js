@@ -68,6 +68,7 @@ export default function App() {
           <Route
           path="/subscriptions/:idPlano"
           element={<Plano
+          setUsuario={setUsuario}
           nomeCartao={nomeCartao}
           setNomeCartao={setNomeCartao}
           numeroCartao={numeroCartao}

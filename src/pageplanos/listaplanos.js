@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom';
 
 export default function ListaPlanos(){
 
-    const {config} = useContext(MyContext);
+    const {config, usuario} = useContext(MyContext);
     const [planos, setPlanos] = useState();
+
+    console.log(usuario);
 
     useEffect(() => {
         axios.get('https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships',config)
